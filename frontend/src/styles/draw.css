@@ -1,0 +1,6 @@
+.draw{
+    height: 450px;
+    background-color: rgba(225, 255, 225, 0.15);
+    backdrop-filter: blur(8.5px);
+    border-radius: 5px 5px 5px 5px;
+}
