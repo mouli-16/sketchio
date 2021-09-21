@@ -1,6 +1,9 @@
 import  "../styles/chat.css";
-import { Send } from "@mui/icons-material"
-import { Avatar } from "@mui/material"
+import { Send } from "@mui/icons-material";
+import { Avatar } from "@mui/material";
+import {useSate,useEffect} from "react";
+import queryString from 'query-string';
+import io from "socket.io-client";
 
 
 

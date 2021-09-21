@@ -1,6 +1,12 @@
 import "../styles/playerinput.css"
+import { useState } from "react";
+import {Link} from "react-router-dom";
 
 const PlayerInput = () => {
+    const[name ,setName] = useState('');
+    const[room ,setRoom] = useState('');
+
+
     return ( 
         <div className="container">
             {/* <img className="bg" src="/assets/bg.jpg" alt="" /> */}
@@ -10,9 +16,11 @@ const PlayerInput = () => {
             </div>
             <div className="inputLeft">
                 <div className="top">
-                <input placeholder="Enter a nickname" className="nickname" />
-                <input placeholder="Enter Your Room Code" className="roomcode" />
+                <input placeholder="Enter a nickname" className="nickname" onChange={(e) => setName(e.target.value)}/>
+                <input placeholder="Enter Your Room Code" className="roomcode" onChange={(e) => setRoom(e.target.value)} />
+                <Link to={`/dashboard?name=${name}&room=${room}`}>
                 <button className="homePagebtn join">Join Room</button>
+                </Link>
                 </div>
                 <hr />
                 <div className="bottom">
