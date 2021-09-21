@@ -1,6 +1,6 @@
 import  "../styles/leaderboard.css";
 import { Avatar } from "@mui/material"
-import { CreateOutlined } from "@mui/icons-material";
+// import { CreateOutlined } from "@mui/icons-material";
 
 function stringToColor(string) {
     let hash = 0;
@@ -47,7 +47,7 @@ const LeaderBoard = () => {
                     <Avatar {...stringAvatar('Abha Jha')} />
                     <h4>Abha Jha</h4>
                     <div className="points">
-                    <CreateOutlined/>
+                    {/* <CreateOutlined/> */}
                          180
                     </div>
                     </li>

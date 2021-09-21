@@ -10,14 +10,14 @@ const PlayerInput = () => {
             </div>
             <div className="inputLeft">
                 <div className="top">
-                <input placeholder="Enter a Nickname" className="nickname" />
+                <input placeholder="Enter a nickname" className="nickname" />
                 <input placeholder="Enter Your Room Code" className="roomcode" />
-                <button className="btn join">Join Room</button>
+                <button className="homePagebtn join">Join Room</button>
                 </div>
                 <hr />
                 <div className="bottom">
                 <input placeholder="Enter a Nickname" className="nickname2" />
-                <button className="btn">Create Room</button>
+                <button className="homePagebtn">Create Room</button>
                 </div>
             </div>
          </div>

@@ -19,7 +19,7 @@
     padding: 10px;
     box-sizing: border-box;
 }
-::placeholder{
+.textArea::placeholder{
     color: white;
 }
 .btn{
