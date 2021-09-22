@@ -3,10 +3,11 @@ import LeaderBoard from "../../components/LeaderBoard.jsx";
 import Draw from "../../components/Draw.jsx";
 import Chat from "../../components/Chat.jsx";
 import  "../../styles/dashboard.css";
+import React,{ useEffect } from "react";
 
 
-
-const Playarea = () => {
+const Dashboard = () => {
+    
     return ( 
         <>
         <div className="playContainer">
@@ -18,4 +19,4 @@ const Playarea = () => {
      );
 }
  
-export default Playarea;
+export default Dashboard;

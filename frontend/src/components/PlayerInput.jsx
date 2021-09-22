@@ -18,7 +18,7 @@ const PlayerInput = () => {
                 <div className="top">
                 <input placeholder="Enter a nickname" className="nickname" onChange={(e) => setName(e.target.value)}/>
                 <input placeholder="Enter Your Room Code" className="roomcode" onChange={(e) => setRoom(e.target.value)} />
-                <Link to={`/dashboard?name=${name}&room=${room}`}>
+                <Link onClick={e => (!name || !room)? e.preventDefault() : null} to={`/dashboard?name=${name}&room=${room}`}>
                 <button className="homePagebtn join">Join Room</button>
                 </Link>
                 </div>

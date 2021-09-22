@@ -1,75 +1,88 @@
 import  "../styles/chat.css";
 import { Send } from "@mui/icons-material";
-import { Avatar } from "@mui/material";
-import {useSate,useEffect} from "react";
+// import { Avatar } from "@mui/material";
+import {useState,useEffect} from "react";
 import queryString from 'query-string';
 import io from "socket.io-client";
+import Message from "./Message";
 
 
 
-function stringToColor(string) {
-    let hash = 0;
-    let i;
+// function stringToColor(string) {
+//     let hash = 0;
+//     let i;
   
-    /* eslint-disable no-bitwise */
-    for (i = 0; i < string.length; i += 1) {
-      hash = string.charCodeAt(i) + ((hash << 5) - hash);
-    }
+//     /* eslint-disable no-bitwise */
+//     for (i = 0; i < string.length; i += 1) {
+//       hash = string.charCodeAt(i) + ((hash << 5) - hash);
+//     }
   
-    let color = '#';
+//     let color = '#';
   
-    for (i = 0; i < 3; i += 1) {
-      const value = (hash >> (i * 8)) & 0xff;
-      color += `00${value.toString(16)}`.substr(-2);
-    }
-    /* eslint-enable no-bitwise */
+//     for (i = 0; i < 3; i += 1) {
+//       const value = (hash >> (i * 8)) & 0xff;
+//       color += `00${value.toString(16)}`.substr(-2);
+//     }
+//     /* eslint-enable no-bitwise */
   
-    return color;
-  }
-function stringAvatar(name) {
-    return {
-      sx: {
-        bgcolor: stringToColor(name),
-      },
-      children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
-    };
-  }
+//     return color;
+//   }
+// function stringAvatar(name) {
+//     return {
+//       sx: {
+//         bgcolor: stringToColor(name),
+//       },
+//       children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+//     };
+//   }
+  const ENDPOINT = 'localhost:8000';
+  let socket;
 const Chat = () => {
+  const [name ,setName] = useState('');
+  const [room ,setRoom] = useState('');
+  const [message ,setMessage] = useState('');
+  const [messages ,setMessages] = useState([]);
+  const [users ,setUsers] = useState([]);
+ 
+  
+  useEffect(() => {
+    const { name, room } = queryString.parse(window.location.search);
+    
+    socket = io(ENDPOINT);
+    
+    setName(name);
+    setRoom(room);
+    
+    
+    socket.emit('chat:join' , { room, name } ,() => {
+      setUsers(users => [ ...users, name ]);   
+    });
+  }, [name]);  
+  useEffect(() => {
+    socket.on('chat:message' , (message) => {
+      setMessages(messages => [ ...messages, message ]);
+      console.log(messages);
+    });
+    socket.on('chat:admin:join', (room,name) =>{
+      console.log(room,name);
+    })
+  }, [name]);
+  const sendMessage = (event) => {
+    event.preventDefault();
+
+    if(message) {
+      socket.emit('chat:message', message, () => setMessage(''));
+    }
+  }
     return (  
         <div className="chat">
             <div className="txt">
-            <ul className="ranklist">
-                    
-                    <li className="ranklistItem">
-                    <Avatar {...stringAvatar('Rohan Rao')} />
-                    <h6>ty fijn fuiheoip ji</h6>
-                    </li>
-                    <li className="ranklistItem active">
-                    <Avatar {...stringAvatar('Abha Jha')} />
-                    <h6>ty fijn ihgihk fuiheoip</h6>
-                    </li>
-                    <li className="ranklistItem">
-                    <Avatar {...stringAvatar('Rishav Rajkumar')} />
-                    <h6>ty fijkn hu fuiheoip</h6>
-                    </li>
-                    <li className="ranklistItem">
-                    <Avatar {...stringAvatar('Ruchika Shaw')} />
-                    <h6>tyjh fijn fuiheoip</h6>
-                    </li>
-                    <li className="ranklistItem">
-                    <Avatar {...stringAvatar('Md Raffiulla')} />
-                    <h6>ty fijn fuiheoip jihj</h6>
-                    </li>
-                    <li className="ranklistItem">
-                    <Avatar {...stringAvatar('Mouli Ghosh')} />
-                    <h6>Mouli is typing...</h6>
-                    </li>
-                              
-                    
-                </ul>
+            {messages.map((message, i) => <div key={i}><Message message={message} name={name} users={users}/></div>)}
             </div>
             <div className="type">
-            <input placeholder="Type Your Text" className="textArea" />
+            <input placeholder="Type Your Text" className="textArea" value={message} 
+            onChange={({ target: { value } }) => setMessage(value)}
+            onKeyPress={event => event.key === 'Enter' ? sendMessage(event) : null}/>
             <button className="btn">
                 <Send/>
             </button>
