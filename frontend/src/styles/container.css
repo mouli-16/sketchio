@@ -1,0 +1,32 @@
+.container {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0);
+    /* background: linear-gradient(50deg, #2f5cd6, rgb(144,28,155)); */
+}
+
+.board-container{
+    width:100%;
+    height:100%;
+    /* margin:auto; */
+    background: white;
+}
+.color-picker-container{
+    text-align:center;
+    display:inline;
+    color:white;
+    
+}
+.brushsize-container{
+    display:inline;
+    color:white;
+    margin-left: 12px;
+}
+
+.brushContainer{
+    text-align: center;
+
+}

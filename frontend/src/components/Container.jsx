@@ -1,6 +1,6 @@
 import React from 'react';
-import './container.css';
-import Board from '../board/Board';
+import  "../styles/container.css";
+import Board from './Board';
 
 class Container extends React.Component{
     constructor(props){
@@ -30,7 +30,10 @@ class Container extends React.Component{
     render(){
         return(
             <div className="container">
-                <div className="tools-section">
+                <div class="board-container">
+                    <Board color={this.state.color} size={this.state.size}></Board>
+                </div>
+                <div className="brushContainer">
 
                 <div className="color-picker-container">
                     Select Brush Color: &nbsp;
@@ -49,9 +52,6 @@ class Container extends React.Component{
                     </select>
                 </div>
 
-                </div>
-                <div class="board-container">
-                    <Board color={this.state.color} size={this.state.size}></Board>
                 </div>
             </div>
         )

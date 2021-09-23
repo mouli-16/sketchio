@@ -5,7 +5,6 @@ import {
   Route, useLocation
 } from "react-router-dom";
 import Dashboard from "./pages/dashboard/Dashboard.jsx";
-import Container from "./components/container/Container.jsx";
 
 
 function App() {
@@ -18,9 +17,6 @@ function App() {
         </Route>
         <Route path="/dashboard">
            <Dashboard/>
-        </Route>
-        <Route path="/container">
-           <Container/>
         </Route>
       </Switch>
     </Router>
