@@ -1,5 +1,6 @@
 import React from 'react';
-import  "../styles/board.css";
+import { socket } from '../service/socket'
+import '../styles/board.css';
 
 
 class Board extends React.Component{
@@ -9,6 +10,25 @@ class Board extends React.Component{
 
     constructor(props){
         super(props);
+        socket.on("canvas-data", function(data){
+            console.log('canvas-data recieved');
+            var root = this;
+            var interval = setInterval(function(){
+                if(root.isDrawing) return;
+                root.isDrawing = true;
+                clearInterval(interval);
+                var image = new Image();
+                var canvas = document.querySelector('#Board');
+                var ctx = canvas.getContext('2d');
+                image.onload = function() {
+                    console.log('image loaded');
+                    ctx.drawImage(image, 0, 0);
+
+                    root.isDrawing = false;
+                };
+                image.src = data;
+            }, 200)
+        })
     }
     componentDidMount(){
         this.drawOnCanvas();
@@ -54,17 +74,23 @@ class Board extends React.Component{
             canvas.removeEventListener('mousemove', onPaint, false);
         }, false);
 
+        var root = this
         var onPaint = function() {
             ctx.beginPath();
             ctx.moveTo(last_mouse.x, last_mouse.y);
             ctx.lineTo(mouse.x, mouse.y);
             ctx.closePath();
             ctx.stroke();
+            if(root.timeout != undefined) clearTimeout(root.timeout);
+            root.timeout = setTimeout(function(){
+                var base64ImageData = canvas.toDataURL("image/png");
+                socket.emit("canvas-data", base64ImageData);
+            }, 1000)
         };
     }
     render(){
         return(
-            <div class="sketch" id="sketch">
+            <div className="sketch" id="sketch">
             <canvas className="Board" id="Board"></canvas>
             </div>
         )

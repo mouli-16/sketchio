@@ -35,7 +35,9 @@ module.exports = (io) => {
         })
 
         socket.on('disconnect', () => {
-            console.log('A user disconnected');
+            const user = getUser(socket.id)
+            const users = getUsersInRoom(user?.room)
+            console.log('A user disconnected\n', 'users:', users);
             removeUser(socket.id)
         })
     }

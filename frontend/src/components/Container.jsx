@@ -30,7 +30,7 @@ class Container extends React.Component{
     render(){
         return(
             <div className="container">
-                <div class="board-container">
+                <div className="board-container">
                     <Board color={this.state.color} size={this.state.size}></Board>
                 </div>
                 <div className="brushContainer">
