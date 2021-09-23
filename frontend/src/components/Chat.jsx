@@ -3,7 +3,7 @@ import { Send } from "@mui/icons-material";
 // import { Avatar } from "@mui/material";
 import {useState,useEffect} from "react";
 import queryString from 'query-string';
-import io from "socket.io-client";
+import { socket } from "../service/socket";
 import Message from "./Message";
 
 
@@ -35,8 +35,6 @@ import Message from "./Message";
 //       children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
 //     };
 //   }
-const ENDPOINT = 'localhost:8000';
-let socket;
 
 const Chat = () => {
   const [name ,setName] = useState('');
@@ -49,11 +47,8 @@ const Chat = () => {
   useEffect(() => {
     const { name, room } = queryString.parse(window.location.search);
     
-    socket = io(ENDPOINT);
-    
     setName(name);
     setRoom(room);
-    
     
     socket.emit('join' , { room, name } ,(err, users) => {
       if (err) {

@@ -28,6 +28,12 @@ module.exports = (io) => {
             cb(null, msg)
         })
 
+        socket.on('canvas-data', (data)=> {
+            console.log('draw data', data);
+            const user = getUser(socket.id)
+            socket.to(user.room).emit('canvas-data', data);
+        })
+
         socket.on('disconnect', () => {
             console.log('A user disconnected');
             removeUser(socket.id)
