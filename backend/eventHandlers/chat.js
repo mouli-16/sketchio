@@ -1,3 +1,5 @@
+const { addUser, removeUser, getUsersInRoom } = require('../users');
+
 class Chat {
   constructor (io, socket) {
     this.io = io
@@ -9,9 +11,11 @@ class Chat {
 
   join ({ room, name }) {
     // console.log(room ,name);
+    const { error, user } = addUser({ name, room });
     this.room = room
     this.socket.join(this.room)
     this.socket.to(this.room).emit('chat:admin:join', { room, name })
+    this.socket.to(this.room).emit('roomData', { room: this.room, users: getUsersInRoom(this.room) });
   }
 
   message (msg, cb) {

@@ -55,13 +55,16 @@ const Chat = () => {
     
     
     socket.emit('chat:join' , { room, name } ,() => {
-      setUsers(users => [ ...users, name ]);   
+      // setUsers(users => [ ...users, name ]);   
     });
   }, [name]);  
   useEffect(() => {
     socket.on('chat:message' , (message) => {
       setMessages(messages => [ ...messages, message ]);
       console.log(messages);
+    });
+    socket.on("roomData", ({ users }) => {
+      setUsers(users);
     });
     socket.on('chat:admin:join', (room,name) =>{
       console.log(room,name);
