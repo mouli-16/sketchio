@@ -4,13 +4,13 @@ const Message = ({ message, name ,users }) => {
   let isSentByCurrentUser = false;
   let other = ''
   // console.log(message,name);
-  const trimmedName = name.trim().toLowerCase();
+  const trimmedName = name.trim();
   
   const sh = () => {
     users.forEach((user, i) => {
       
-      other = user
-      if(user === trimmedName) {
+      other = user.name
+      if(user.name === trimmedName) {
         isSentByCurrentUser = true;
       }
     })

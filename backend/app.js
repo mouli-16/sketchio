@@ -33,10 +33,6 @@ app.use(cors({
   origin: process.env.CORS_ORIGINS || '*'
 }))
 
-/**
- * Routes
- */
-// app.use(routes)
 
 server.listen(PORT, () => {
   console.log(`server listening on ${PORT}`)

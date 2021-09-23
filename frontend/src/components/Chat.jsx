@@ -35,8 +35,9 @@ import Message from "./Message";
 //       children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
 //     };
 //   }
-  const ENDPOINT = 'localhost:8000';
-  let socket;
+const ENDPOINT = 'localhost:8000';
+let socket;
+
 const Chat = () => {
   const [name ,setName] = useState('');
   const [room ,setRoom] = useState('');
@@ -54,27 +55,35 @@ const Chat = () => {
     setRoom(room);
     
     
-    socket.emit('chat:join' , { room, name } ,() => {
-      // setUsers(users => [ ...users, name ]);   
+    socket.emit('join' , { room, name } ,(err, users) => {
+      if (err) {
+        console.log('(1) An error:', err);
+        return
+      }
+      setUsers(users);   
     });
   }, [name]);  
   useEffect(() => {
-    socket.on('chat:message' , (message) => {
+    socket.on('message' , (message) => {
       setMessages(messages => [ ...messages, message ]);
-      console.log(messages);
+      console.log('message:', messages);
     });
-    socket.on("roomData", ({ users }) => {
-      setUsers(users);
-    });
-    socket.on('chat:admin:join', (room,name) =>{
-      console.log(room,name);
+    socket.on('player joined', (user) =>{
+      console.log('player joined:', user);
     })
   }, [name]);
   const sendMessage = (event) => {
     event.preventDefault();
 
     if(message) {
-      socket.emit('chat:message', message, () => setMessage(''));
+      socket.emit('message', message, (err, msg) => {
+        if (err) {
+          console.log('(2) An error:', err);
+          return
+        }
+        console.log('sent message:', msg);
+        setMessage('')
+      });
     }
   }
     return (  
