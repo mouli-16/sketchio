@@ -31,12 +31,17 @@ module.exports = (io) => {
         socket.on('canvas-data', (data)=> {
             console.log('draw data', data);
             const user = getUser(socket.id)
+            if(!user) {
+                console.log('user not found', null)
+                return
+            }
+            
             socket.to(user.room).emit('canvas-data', data);
         })
 
         socket.on('disconnect', () => {
             const user = getUser(socket.id)
-            const users = getUsersInRoom(user?.room)
+            const users = user == undefined ? undefined : getUsersInRoom(user.room)
             console.log('A user disconnected\n', 'users:', users);
             removeUser(socket.id)
         })
