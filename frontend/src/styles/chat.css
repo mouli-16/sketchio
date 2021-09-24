@@ -5,6 +5,7 @@
     border-radius:  5px 20px 20px 5px;
     display: grid;
     align-items: flex-end;
+    color: white;
     /* justify-content: center; */
 }
 .textArea{
