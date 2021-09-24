@@ -1,21 +1,13 @@
 import ReactEmoji from 'react-emoji';
 
-const Message = ({ message, name ,users }) => {
+  const Message = ({ message, sentBy, name }) => {
   let isSentByCurrentUser = false;
   let other = ''
-  // console.log(message,name);
-  const trimmedName = name.trim();
-  
-  const sh = () => {
-    users.forEach((user, i) => {
-      
-      other = user.name
-      if(user.name === trimmedName) {
-        isSentByCurrentUser = true;
-      }
-    })
+  console.log('MessageObj:', message,name, sentBy);
+
+  if (sentBy === name) {
+    isSentByCurrentUser = true
   }
-  sh();
 
   
 
@@ -23,7 +15,7 @@ const Message = ({ message, name ,users }) => {
     isSentByCurrentUser
       ? (
         <div className="messageContainer justifyEnd">
-          <p className="sentText pr-10">{name}</p>
+          <p className="sentText pr-10">{sentBy}</p>
            <div className="messageBox backgroundBlue">
             <p className="messageText colorWhite">{message}</p>
           </div>
@@ -31,10 +23,10 @@ const Message = ({ message, name ,users }) => {
         )
         : (
           <div className="messageContainer justifyStart">
+            <p className="sentText pl-10 ">{sentBy}</p>
             <div className="messageBox backgroundLight">
               <p className="messageText colorDark">{message}</p>
              </div>
-            <p className="sentText pl-10 ">{other}</p>
          </div>
         )
   );

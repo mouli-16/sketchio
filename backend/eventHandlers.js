@@ -24,7 +24,7 @@ module.exports = (io) => {
                 cb('user not found', null)
                 return
             }
-            socket.to(user.room).emit('message', msg)
+            socket.to(user.room).emit('message', {message: msg, sentBy: user.name})
             cb(null, msg)
         })
 

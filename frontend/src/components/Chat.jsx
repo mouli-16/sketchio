@@ -2,7 +2,6 @@ import  "../styles/chat.css";
 import { Send } from "@mui/icons-material";
 // import { Avatar } from "@mui/material";
 import {useState,useEffect} from "react";
-import queryString from 'query-string';
 import { socket } from "../service/socket";
 import Message from "./Message";
 
@@ -36,7 +35,7 @@ import Message from "./Message";
 //     };
 //   }
 
-const Chat = () => {
+const Chat = (props) => {
   const [name ,setName] = useState('');
   const [room ,setRoom] = useState('');
   const [message ,setMessage] = useState('');
@@ -45,28 +44,17 @@ const Chat = () => {
  
   
   useEffect(() => {
-    const { name, room } = queryString.parse(window.location.search);
-    
+    const { room, name, users} = props
     setName(name);
     setRoom(room);
-    
-    socket.emit('join' , { room, name } ,(err, users) => {
-      if (err) {
-        console.log('(1) An error:', err);
-        return
-      }
-      setUsers(users);   
-    });
-  }, [name]);  
+    setUsers(users);
+  }, [window.location]);  
   useEffect(() => {
-    socket.on('message' , (message) => {
-      setMessages(messages => [ ...messages, message ]);
-      console.log('message:', messages);
+    socket.on('message' , (messageObj) => {
+      setMessages(messageObjs => [ ...messageObjs, messageObj ]);
+      console.log('messageObj:', messageObj);
     });
-    socket.on('player joined', (user) =>{
-      console.log('player joined:', user);
-    })
-  }, [name]);
+  }, [window.location]);
   const sendMessage = (event) => {
     event.preventDefault();
 
@@ -77,14 +65,14 @@ const Chat = () => {
           return
         }
         console.log('sent message:', msg);
-        setMessage('')
+        setMessages(messageObjs => [ ...messageObjs, {message, sentBy:name} ]);
       });
     }
   }
     return (  
         <div className="chat">
             <div className="txt">
-            {messages.map((message, i) => <div key={i}><Message message={message} name={name} users={users}/></div>)}
+            {messages.map(({message, sentBy}, i) => <div key={i}><Message message={message} sentBy={sentBy} name={name}/></div>)}
             </div>
             <div className="type">
             <input placeholder="Type Your Text" className="textArea" value={message} 
