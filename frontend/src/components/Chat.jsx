@@ -66,6 +66,7 @@ const Chat = (props) => {
         }
         console.log('sent message:', msg);
         setMessages(messageObjs => [ ...messageObjs, {message, sentBy:name} ]);
+        setMessage('')
       });
     }
   }
