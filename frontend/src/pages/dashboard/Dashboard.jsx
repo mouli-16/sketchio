@@ -15,7 +15,7 @@ const Dashboard = () => {
     useEffect(() => {
 
         socket.emit('join' , { room, name } ,(err, _users) => {
-            console.log('aaya');
+            console.log('In join');
             if (err) {
                 console.log('(1) An error:', err);
                 return

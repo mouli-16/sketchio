@@ -1,8 +1,26 @@
-const { addUser, removeUser, getUser, getUsersInRoom } = require('./users');
+const { createRoom, checkRoom, addUser, removeUser, getUser, getUsersInRoom } = require('./users');
 
 module.exports = (io) => {
     function eventHandlers(socket) {
         console.log('A user connected');
+
+        socket.on('create room', (name, cb) => {
+            const { error, user } = createRoom({sid: socket.id, name})
+            if (error) {
+                cb(error, null)
+                return
+            }
+            cb(null, user.room)
+        })
+
+        socket.on('check room', (_room, cb) => {
+            const { error, room } = checkRoom(_room)
+            if (error) {
+                cb(error, null)
+                return
+            }
+            cb(null, room)
+        })
 
         socket.on('join', ({ room, name }, cb) => {
             const { error, user } = addUser({sid: socket.id, room, name})
