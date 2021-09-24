@@ -1,6 +1,6 @@
 
 import LeaderBoard from "../../components/LeaderBoard.jsx";
-import Draw from "../../components/Draw.jsx";
+import Container from "../../components/Container.jsx";
 import Chat from "../../components/Chat.jsx";
 import  "../../styles/dashboard.css";
 import React,{ useEffect } from "react";
@@ -12,7 +12,7 @@ const Dashboard = () => {
         <>
         <div className="playContainer">
         <LeaderBoard />
-        <Draw/>
+        <Container/>
         <Chat/>
         </div>
         </>

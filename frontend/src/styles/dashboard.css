@@ -12,7 +12,7 @@
 .board{
     flex:3.5;
 }
-.draw{
+.container{
     flex:5;
 }
 .chat{
