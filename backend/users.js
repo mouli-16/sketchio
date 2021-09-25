@@ -1,5 +1,27 @@
 const users = [];
 
+const createRoom = ({ sid, name }) => {
+  if(!name) return { error: 'Username required.' }
+
+  const room = Math.random().toString(36).substr(2, 6);
+  const existingUser = users.find((user) => user.room === room)
+  if(existingUser) {
+    if(existingUser.sid === sid) return {user: existingUser}
+    return createRoom({ sid, name })
+  }
+  return addUser({ sid, room, name })
+}
+
+const checkRoom = (room) => {
+  if(!room) return { error: 'Room required.' }
+
+  const existingUser = users.find((user) => user.room === room)
+  if(!existingUser) {
+    return { error: 'Room not found.' }
+  }
+  return { room }
+}
+
 const addUser = ({ sid, room, name }) => {
   if(!name || !room) return { error: 'Username and room are required.' };
 
@@ -8,7 +30,10 @@ const addUser = ({ sid, room, name }) => {
 
   const existingUser = users.find((user) => user.room === room && user.name === name);
 
-  if(existingUser) return { error: 'Username is taken.' };
+  if(existingUser) {
+    if(existingUser.sid === sid) return {user: existingUser}
+    return { error: 'Username is taken.' };
+  }
 
   const user = { sid, room, name };
 
@@ -27,4 +52,4 @@ const getUser = (sid) => users.find((user) => user.sid === sid);
 
 const getUsersInRoom = (room) => users.filter((user) => user.room === room);
 
-module.exports = { addUser, removeUser, getUser, getUsersInRoom };
+module.exports = { createRoom, checkRoom, addUser, removeUser, getUser, getUsersInRoom };
