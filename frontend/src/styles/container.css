@@ -17,19 +17,53 @@
     border-radius: 15px 15px 15px 15px;
     
 }
-.color-picker-container{
+/* .tools{
+    height: 100%;
+    width:100%;
+    display: inline;
+} */
+.brushContainer{
+    width:100%;
+    height:50px;
+    position: sticky;
+    justify-content: space-between;
     text-align:center;
-    display:inline;
-    color:white;
+    display: flex;
+    
+
+}
+.color-picker-container{
+    position:relative;
+    font-size:20px;
+    justify-content:space-between;
+    width: 40%;
+    float: left;
+    display:flex;
+    color:white; 
     
 }
+.clear{
+
+    position:relative;
+    justify-content:space-between;
+    font-size: 20px;
+    width:fit-content;
+    height: fit-content;
+    float:middle;
+    display:flex;
+    text-align:center;
+    color: black;
+    /* z-index: 1000; */
+}
+
 .brushsize-container{
-    display:inline;
+    position:relative;
+    justify-content:right;
+    width:40%; 
+    display:flex; 
+    float:right;
     color:white;
-    margin-left: 12px;
+    font-size: 20px;
+     /* margin-left: 12px; */
 }
 
-.brushContainer{
-    text-align: center;
-
-}

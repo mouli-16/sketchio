@@ -6,6 +6,7 @@ import '../styles/board.css';
 class Board extends React.Component{
 
     ctx;
+    clearRect;
 
 
     constructor(props){
@@ -20,6 +21,7 @@ class Board extends React.Component{
                 var image = new Image();
                 var canvas = document.querySelector('#Board');
                 var ctx = canvas.getContext('2d');
+                // this.ctx.clearRect(0,0,canvas.clientWidth,canvas.height);
                 image.onload = function() {
                     console.log('image loaded');
                     ctx.drawImage(image, 0, 0);
@@ -74,6 +76,8 @@ class Board extends React.Component{
             canvas.removeEventListener('mousemove', onPaint, false);
         }, false);
 
+        // ctx.clearRect(0,0,canvas.width,canvas.height);
+
         var root = this
         var onPaint = function() {
             ctx.beginPath();
@@ -87,7 +91,10 @@ class Board extends React.Component{
                 socket.emit("canvas-data", base64ImageData);
             }, 1000)
         };
+        
+    
     }
+    
     render(){
         return(
             <div className="sketch" id="sketch">

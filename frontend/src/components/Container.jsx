@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import React from 'react';
 import  "../styles/container.css";
 import Board from './Board';
@@ -23,6 +24,14 @@ class Container extends React.Component{
 
         }
 
+     handleClear = ()=>{
+         this.clearArea()
+     } 
+     clearArea = () =>{
+        var canvas = document.querySelector('#Board');
+        this.ctx = canvas.getContext('2d');
+        this.ctx.clearRect(0,0,canvas.clientWidth,canvas.height);
+     }  
 
 
 
@@ -33,13 +42,17 @@ class Container extends React.Component{
                 <div className="board-container">
                     <Board color={this.state.color} size={this.state.size}></Board>
                 </div>
+                {/* <div className="tools"> */}
                 <div className="brushContainer">
-
+                
                 <div className="color-picker-container">
-                    Select Brush Color: &nbsp;
+                    Color: &nbsp;
                     <input type="color"  value={this.state.color} onChange={this.changeColor.bind(this)}/>
                 </div>
-
+                <div className="clear">
+                    <button onClick={this.handleClear}>CLEAR</button>
+                </div>
+                
                 <div className="brushsize-container">
                     Select Brush Size: &nbsp;
                     <select value={this.state.size} onChange={this.changeSize.bind(this)}>
@@ -50,9 +63,10 @@ class Container extends React.Component{
                         <option>25</option>
                         <option>30</option>
                     </select>
+                
                 </div>
-
                 </div>
+                {/* </div> */}
             </div>
         )
     }
