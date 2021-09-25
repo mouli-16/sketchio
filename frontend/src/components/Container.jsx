@@ -1,6 +1,7 @@
 import { Button } from '@mui/material';
 import React from 'react';
 import  "../styles/container.css";
+import Slider from '@mui/material/Slider';
 import Board from './Board';
 
 class Container extends React.Component{
@@ -34,8 +35,6 @@ class Container extends React.Component{
      }  
 
 
-
-
     render(){
         return(
             <div className="container">
@@ -44,25 +43,18 @@ class Container extends React.Component{
                 </div>
                 {/* <div className="tools"> */}
                 <div className="brushContainer">
+                <div className="Brushtop">
                 
                 <div className="color-picker-container">
-                    Color: &nbsp;
-                    <input type="color"  value={this.state.color} onChange={this.changeColor.bind(this)}/>
+                    <input type="color"  className="colorPicker" value={this.state.color} onChange={this.changeColor.bind(this)}/>
                 </div>
-                <div className="clear">
-                    <button onClick={this.handleClear}>CLEAR</button>
+                <div >
+                    <button className="clear" onClick={this.handleClear}>CLEAR</button>
                 </div>
-                
+                </div>
                 <div className="brushsize-container">
-                    Select Brush Size: &nbsp;
-                    <select value={this.state.size} onChange={this.changeSize.bind(this)}>
-                        <option>5</option>
-                        <option>10</option>
-                        <option>15</option>
-                        <option>20</option>
-                        <option>25</option>
-                        <option>30</option>
-                    </select>
+                    <Slider color="secondary" defaultValue={5} value={this.state.size} onChange={this.changeSize.bind(this)}
+                       valueLabelDisplay="auto" step={5} marks min={5} max={30} />
                 
                 </div>
                 </div>

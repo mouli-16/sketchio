@@ -37,8 +37,9 @@ function stringAvatar(name) {
 const LeaderBoard = (props) => {
   const { room, name } = props
   const [users, setUsers] = useState([]);
+  let points = 0;
   useEffect(() => {
-    socket.emit('join' , { room, name } ,(err, _users) => {
+    socket.emit('join' , { room, name, points } ,(err, _users) => {
       console.log('In join');
       if (err) {
         console.log('(1) An error:', err);
@@ -61,12 +62,12 @@ const LeaderBoard = (props) => {
       <div className="ranks">
         <ul className="ranklist">
           {
-            users.map(({ name }, i) => {
+            users.map(({ name,points }, i) => {
               return (
                 <li key={i} className="ranklistItem">
                   <Avatar {...stringAvatar(name)} />
                   <h4>{name}</h4>
-                  <div className="points">180</div>
+                  <div className="points">{points}</div>
                 </li>
               )
             })

@@ -22,8 +22,8 @@ module.exports = (io) => {
             cb(null, room)
         })
 
-        socket.on('join', ({ room, name }, cb) => {
-            const { error, user } = addUser({sid: socket.id, room, name})
+        socket.on('join', ({ room, name, points }, cb) => {
+            const { error, user } = addUser({sid: socket.id, room, name, points})
             const users = getUsersInRoom(room)
             if (error) {
                 cb(error, null)

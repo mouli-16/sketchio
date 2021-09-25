@@ -22,7 +22,7 @@ const checkRoom = (room) => {
   return { room }
 }
 
-const addUser = ({ sid, room, name }) => {
+const addUser = ({ sid, room, name ,points}) => {
   if(!name || !room) return { error: 'Username and room are required.' };
 
   name = name.trim();
@@ -35,7 +35,7 @@ const addUser = ({ sid, room, name }) => {
     return { error: 'Username is taken.' };
   }
 
-  const user = { sid, room, name };
+  const user = { sid, room, name ,points };
 
   users.push(user);
 
