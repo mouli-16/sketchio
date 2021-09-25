@@ -32,7 +32,7 @@ const Dashboard = () => {
     return ( 
         <>
         <div className="playContainer">
-        <LeaderBoard />
+        <LeaderBoard users={users}/>
         <Container/>
         <Chat room={room} name={name} users={users}/>
         </div>
