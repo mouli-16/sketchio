@@ -36,19 +36,11 @@ import Message from "./Message";
 //   }
 
 const Chat = (props) => {
-  const [name ,setName] = useState('');
-  const [room ,setRoom] = useState('');
   const [message ,setMessage] = useState('');
   const [messages ,setMessages] = useState([]);
-  const [users ,setUsers] = useState([]);
  
+  const { name } = props;
   
-  useEffect(() => {
-    const { room, name, users} = props
-    setName(name);
-    setRoom(room);
-    setUsers(users);
-  }, [window.location]);  
   useEffect(() => {
     socket.on('message' , (messageObj) => {
       setMessages(messageObjs => [ ...messageObjs, messageObj ]);
