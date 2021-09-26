@@ -36,13 +36,21 @@ import Message from "./Message";
 //   }
 
 const Chat = (props) => {
+  const [turn ,setTurn] = useState('');
+  const [word ,setWord] = useState('');
   const [message ,setMessage] = useState('');
   const [messages ,setMessages] = useState([]);
  
   const { name } = props;
-  
+  let { users } = props;
+  if(users.length === 1) {
+    setTurn(users[0].name)
+  }
   useEffect(() => {
     socket.on('message' , (messageObj) => {
+      if(messageObj.chosen){
+        setTurn(messageObj.sentBy)
+      }
       setMessages(messageObjs => [ ...messageObjs, messageObj ]);
       console.log('messageObj:', messageObj);
     });
@@ -51,16 +59,42 @@ const Chat = (props) => {
     event.preventDefault();
 
     if(message) {
-      socket.emit('message', message, (err, msg) => {
+      console.log('turn:', turn, '\nusers:', users);
+      if (name === turn && message.startsWith('!')){
+        socket.emit('word chosen', message.slice(1), (err, word) => {
+          if (err) {
+            console.log('(3) An error:', err);
+            return
+          }
+          setWord(word)
+          setMessages(messageObjs => [ ...messageObjs, {message: `You have chosen: ${word}`, sentBy:name} ]);
+          setMessage('')
+        })
+        return
+      }
+      if(name === turn && message === word) {
+        setMessage('')
+        return
+      }
+      socket.emit('message', {message, turn}, (err, data) => {
         if (err) {
           console.log('(2) An error:', err);
           return
         }
+        const {correctGuess, msg} = data
+        if (correctGuess) {
+          setNextTurn()
+        }
         console.log('sent message:', msg);
-        setMessages(messageObjs => [ ...messageObjs, {message, sentBy:name} ]);
+        setMessages(messageObjs => [ ...messageObjs, {message: msg, sentBy:name} ]);
         setMessage('')
       });
     }
+  }
+  const setNextTurn = () => {
+    users.sort((a, b) => a.name.localeCompare(b.name))
+    const index = users.findIndex((user) => user.name === turn)
+    setTurn(index + 1 === users.length ? users[0] : users[index + 1])
   }
     return (  
         <div className="chat">

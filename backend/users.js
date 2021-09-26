@@ -22,7 +22,7 @@ const checkRoom = (room) => {
   return { room }
 }
 
-const addUser = ({ sid, room, name ,points}) => {
+const addUser = ({ sid, room, name, points, word = null }) => {
   if(!name || !room) return { error: 'Username and room are required.' };
 
   name = name.trim();
@@ -35,7 +35,7 @@ const addUser = ({ sid, room, name ,points}) => {
     return { error: 'Username is taken.' };
   }
 
-  const user = { sid, room, name ,points };
+  const user = { sid, room, name ,points, word };
 
   users.push(user);
 
@@ -48,8 +48,14 @@ const removeUser = (sid) => {
   if(index !== -1) return users.splice(index, 1)[0];
 }
 
-const getUser = (sid) => users.find((user) => user.sid === sid);
+const getUserById = (sid) => users.find((user) => user.sid === sid);
+
+const getUserByName = (name) => users.find((user) => user.name === name);
+
+const updateUser = (user) => {
+  if (removeUser(user.sid) !== undefined) return addUser(user)
+}
 
 const getUsersInRoom = (room) => users.filter((user) => user.room === room);
 
-module.exports = { createRoom, checkRoom, addUser, removeUser, getUser, getUsersInRoom };
+module.exports = { createRoom, checkRoom, addUser, removeUser, getUserById, getUserByName, updateUser, getUsersInRoom };
