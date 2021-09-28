@@ -1,5 +1,5 @@
-import PlayerInput from "../../components/PlayerInput.jsx";
-import "../../styles/home.css"
+import PlayerInput from "./PlayerInput.jsx";
+import "../styles/home.css"
 
 const Home = () => {
     return ( 

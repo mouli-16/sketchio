@@ -1,10 +1,11 @@
-import Home from "./pages/home/Home.jsx";
+import Home from "./components/Home.jsx";
 import {
   BrowserRouter as Router,
   Switch,
   Route, useLocation
 } from "react-router-dom";
 import Dashboard from "./pages/dashboard/Dashboard.jsx";
+import LoginPage from "./pages/login/LoginPage.jsx";
 
 
 function App() {
@@ -13,7 +14,7 @@ function App() {
     <Router>
       <Switch >
         <Route exact path="/">
-           <Home/>
+           <LoginPage/>
         </Route>
         <Route path="/:room">
            <Dashboard/>
