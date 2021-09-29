@@ -1,6 +1,5 @@
 import  "../styles/leaderboard.css";
 import { Avatar } from "@mui/material"
-import Player from "./Player";
 // import { CreateOutlined } from "@mui/icons-material";
 import {useState, useEffect} from "react";
 import { socket } from "../service/socket";
