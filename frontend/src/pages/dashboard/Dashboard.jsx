@@ -10,7 +10,7 @@ const Dashboard = () => {
     const { room } = useParams()
     const { name } = useLocation()
 
-    const [users, setUsers] = useState([])
+    window.localStorage.clear()
 
     return ( 
         <>

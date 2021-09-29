@@ -46,11 +46,16 @@ const Chat = (props) => {
 
   useEffect(() => {
     console.log('fetching users:', users);
-    setUsers(window.JSON.parse(window.localStorage.getItem('users')))
-    console.log('chat users:', users);
-    if(users.length === 1) {
-      setTurn(users[0].name)
-      console.log('setting turn:', turn);
+    const _users = window.JSON.parse(window.localStorage.getItem('users'))
+    if (_users) {
+      setUsers(_users)
+      console.log('chat users:', users);
+      if(users.length === 1) {
+        setTurn(users[0].name)
+        console.log('setting turn:', turn);
+      }
+    } else {
+      console.log('users not found in localStorage');
     }
   }, [window.localStorage.getItem('users')])
   useEffect(() => {
