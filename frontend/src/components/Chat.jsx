@@ -40,12 +40,19 @@ const Chat = (props) => {
   const [word ,setWord] = useState('');
   const [message ,setMessage] = useState('');
   const [messages ,setMessages] = useState([]);
+  const [users ,setUsers] = useState([]);
  
   const { name } = props;
-  let { users } = props;
-  if(users.length === 1) {
-    setTurn(users[0].name)
-  }
+
+  useEffect(() => {
+    console.log('fetching users:', users);
+    setUsers(window.JSON.parse(window.localStorage.getItem('users')))
+    console.log('chat users:', users);
+    if(users.length === 1) {
+      setTurn(users[0].name)
+      console.log('setting turn:', turn);
+    }
+  }, [window.localStorage.getItem('users')])
   useEffect(() => {
     socket.on('message' , (messageObj) => {
       if(messageObj.chosen){
@@ -55,12 +62,20 @@ const Chat = (props) => {
       console.log('messageObj:', messageObj);
     });
   }, [window.location]);
+  const setNextTurn = () => {
+    console.log('in setnectturn');
+    users.sort((a, b) => a.name.localeCompare(b.name))
+    const index = users.findIndex((user) => user.name === turn)
+    setTurn(index + 1 === users.length ? users[0] : users[index + 1])
+    console.log('called setNextTurn', turn);
+  }
   const sendMessage = (event) => {
     event.preventDefault();
-
+    console.log('turn turn:',turn);
     if(message) {
       console.log('turn:', turn, '\nusers:', users);
       if (name === turn && message.startsWith('!')){
+        console.log('turn turn turn', turn);
         socket.emit('word chosen', message.slice(1), (err, word) => {
           if (err) {
             console.log('(3) An error:', err);
@@ -77,6 +92,7 @@ const Chat = (props) => {
         return
       }
       socket.emit('message', {message, turn}, (err, data) => {
+        console.log('turn turn turn turn turn', turn);
         if (err) {
           console.log('(2) An error:', err);
           return
@@ -90,11 +106,6 @@ const Chat = (props) => {
         setMessage('')
       });
     }
-  }
-  const setNextTurn = () => {
-    users.sort((a, b) => a.name.localeCompare(b.name))
-    const index = users.findIndex((user) => user.name === turn)
-    setTurn(index + 1 === users.length ? users[0] : users[index + 1])
   }
     return (  
         <div className="chat">

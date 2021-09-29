@@ -35,7 +35,7 @@ module.exports = (io) => {
             cb(null, users)
         })
 
-        socket.on('message', ({message:msg, turn}, cb) => {
+        socket.on('message', ({message:msg, turn=null}, cb) => {
             const user = getUserById(socket.id)
             console.log('onMessage', msg, user, socket.id);
             if(!user) {
@@ -46,7 +46,7 @@ module.exports = (io) => {
             if(turn) {
                 const { word } = getUserByName(turn)
                 if(!word) {
-                    cb(`error, it's not ${turn}'s turn'`)
+                    cb(`error, it's not ${turn}'s turn'`, null)
                     return
                 }
                 if(word === msg) {
@@ -60,7 +60,7 @@ module.exports = (io) => {
                 }
             }
             socket.to(user.room).emit('message', {message: msg, sentBy: user.name})
-            cb(null, msg)
+            cb(null, {msg})
         })
 
         socket.on('word chosen', (word, cb) => {

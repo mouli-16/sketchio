@@ -34,8 +34,7 @@ function stringAvatar(name) {
     };
   }
 
-const LeaderBoard = (props) => {
-  const { room, name, updateUsers } = props
+const LeaderBoard = ({ room, name }) => {
   const [users, setUsers] = useState([]);
   let points = 0;
   useEffect(() => {
@@ -47,14 +46,12 @@ const LeaderBoard = (props) => {
       }
       console.log('Leaderboard users:', _users);
       setUsers(_users)
-      console.log('calling updateUsers 1 :', users);
-      updateUsers(users)
+      window.localStorage.setItem('users', window.JSON.stringify(_users))
     });
     socket.on('player joined', (user) => {
       console.log('player joined:', user);
       setUsers(users => [...users, user])
-      console.log('calling updateUsers 2 :', [...users, user]);
-      updateUsers([...users, user])
+      window.localStorage.setItem('users', window.JSON.stringify([...users, user]))
     })
   }, [window.location]);
 
