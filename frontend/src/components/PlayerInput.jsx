@@ -7,7 +7,7 @@ import { socket } from "../service/socket";
 const PlayerInput = () => {
     const[name ,setName] = useState('');
     const[room ,setRoom] = useState('');
-    const[error ,setError] = useState(false);
+    const[error ,setError] = useState('');
     const[checked ,setChecked] = useState(false);
     const[created,setCreated] = useState(false);
 
@@ -17,8 +17,8 @@ const PlayerInput = () => {
         socket.emit('create room', name, (err, _room) => {
             if (err) {
                 console.log('Cannot create room:', err);
+                setError(err)
                 setRoom('')
-                setError(true)
                 return
             }
                 setRoom(_room)
@@ -30,7 +30,7 @@ const PlayerInput = () => {
         socket.emit('check room', {room,name}, (err, _room) => {
             if (err) {
                 console.log('Cannot check room:', err);
-                setError(true)
+                setError(err)
                 setRoom('')
                 return
             }
@@ -50,7 +50,7 @@ const PlayerInput = () => {
             {/* <img className="bg" src="/assets/bg.jpg" alt="" /> */} 
             <div className="alert">
 
-            {error ? (<Alert severity="error">An Error Occured</Alert>) : (checked ? (<Alert severity="success">You Entered a Valid Room Code!!!</Alert>) : (created ? (<Alert severity="success">Room Created !!!</Alert>) : null))}
+            {error ? (<Alert severity="error">An Error Occured: {error}</Alert>) : (checked ? (<Alert severity="success">You Entered a Valid Room Code!!!</Alert>) : (created ? (<Alert severity="success">Room Created !!!</Alert>) : null))}
             </div>
          <div className="inputWrapper">
             <div className="inputRight">
