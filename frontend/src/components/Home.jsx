@@ -1,14 +1,12 @@
-import PlayerInput from "./PlayerInput.jsx";
-import "../styles/home.css"
+import PlayerInput from "./PlayerInput";
+import "../styles/home.css";
 
 const Home = () => {
-    return ( 
+  return (
+    <div className="homeContainer">
+      <PlayerInput />
+    </div>
+  );
+};
 
-        <div className="homeContainer">
-          <PlayerInput/>
-        </div>
-     );
-}
- 
 export default Home;
-

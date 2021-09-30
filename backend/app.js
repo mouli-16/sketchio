@@ -1,6 +1,5 @@
 const express = require('express')
 const socketio = require('socket.io')
-const cors = require('cors')
 
 const { createServer } = require('http')
 
@@ -15,7 +14,6 @@ const io = socketio(server, {
   }
 })
 
-// const routes = require('./routes')
 const eventHandlers = require('./eventHandlers')(io)
 
 const PORT = process.env.PORT || 8000
@@ -24,14 +22,6 @@ const PORT = process.env.PORT || 8000
  * Socket event handlers
  */
 io.on('connection', eventHandlers)
-
-/**
- * Middlewares
- */
-app.use(express.json())
-app.use(cors({
-  origin: process.env.CORS_ORIGINS || '*'
-}))
 
 
 server.listen(PORT, () => {

@@ -1,23 +1,17 @@
-import Home from "./components/Home.jsx";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route, useLocation
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 import Dashboard from "./pages/dashboard/Dashboard.jsx";
 import LoginPage from "./pages/login/LoginPage.jsx";
 
-
 function App() {
-  
   return (
     <Router>
-      <Switch >
+      <Switch>
         <Route exact path="/">
-           <LoginPage/>
+          <LoginPage />
         </Route>
         <Route path="/:room">
-           <Dashboard/>
+          <Dashboard />
         </Route>
       </Switch>
     </Router>

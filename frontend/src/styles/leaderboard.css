@@ -1,36 +1,33 @@
-
-
-.board{
-    height: 500px;
-    background-color: rgba(225, 255, 225, 0.15);
-    margin-right: 20px;
-    border-radius: 20px 5px 5px 20px;
-    display: grid;
-    justify-content: center;
-    
+.board {
+  height: 500px;
+  background-color: rgba(225, 255, 225, 0.15);
+  margin-right: 20px;
+  border-radius: 20px 5px 5px 20px;
+  display: grid;
+  justify-content: center;
 }
-h2{
-    font-family: 'Raleway', sans-serif;
-    color: white;
-    margin: 20px
+h2 {
+  font-family: "Raleway", sans-serif;
+  color: white;
+  margin: 20px;
 }
-.ranklist{
-    padding:0;
-    margin: 0;
-    list-style: none;
-  }
-.ranklistItem{
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    margin-left: -30px;
+.ranklist {
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
-h4{
-    color: wheat;
-    margin-left: 20px;
+.ranklistItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-left: -30px;
 }
-.points{
-    color: white;
-    font-weight: bold;
-    margin-left: 20px;
+h4 {
+  color: wheat;
+  margin-left: 20px;
+}
+.points {
+  color: white;
+  font-weight: bold;
+  margin-left: 20px;
 }
