@@ -54,7 +54,7 @@ module.exports = (io) => {
                         return
                     }
                     socket.to(user.room).emit('message', {message: 'I guessed it!!', sentBy: user.name})
-                    cb(null, {correctGuess: true, msg:`You guessed it right, the word is ${word}`})
+                    cb(null, {isCorrectGuess: true, msg:`You guessed it right, the word is ${word}`})
                     return
                 }
             }
