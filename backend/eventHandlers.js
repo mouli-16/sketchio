@@ -14,8 +14,8 @@ module.exports = (io) => {
             cb(null, user.room)
         })
 
-        socket.on('check room', (_room, cb) => {
-            const { error, room } = checkRoom(_room)
+        socket.on('check room', ({room:_room,name}, cb) => {
+            const { error, room } = checkRoom(_room,name)
             if (error) {
                 cb(error, null)
                 return
@@ -48,11 +48,7 @@ module.exports = (io) => {
                 const user2 = getUserByName(turn)
                 console.log('in message event:', user2);
                 const word = user2.word
-                if(!word) {
-                    cb(`error, it's not ${turn}'s turn'`, null)
-                    return
-                }
-                if(word === msg) {
+                if(word && word === msg) {
                     if(user.name === turn) {
                         cb('You cannot guess, it\'s your turn', null)
                         return

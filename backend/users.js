@@ -13,12 +13,15 @@ const createRoom = ({ sid, name }) => {
   return addUser({ sid, room, name })
 }
 
-const checkRoom = (room) => {
+const checkRoom = (room,name) => {
   if(!room) return { error: 'Room required.' }
-
-  const existingUser = users.find((user) => user.room === room)
-  if(!existingUser) {
+  const usersInRoom = getUsersInRoom(room)
+  if(usersInRoom.length === 0) {
     return { error: 'Room not found.' }
+  }
+  const existingUser =  usersInRoom.find((user) => user.name === name)
+  if(existingUser) {
+    return {error:'Username Taken'}
   }
   return { room }
 }

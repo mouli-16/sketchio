@@ -7,8 +7,10 @@ import { socket } from "../service/socket";
 const PlayerInput = () => {
     const[name ,setName] = useState('');
     const[room ,setRoom] = useState('');
-    // const[tempRoom ,setTempRoom] = useState('');
-    let _error = false;
+    const[error ,setError] = useState(false);
+    const[checked ,setChecked] = useState(false);
+    const[created,setCreated] = useState(false);
+
 
 
     const createRoom = () => {
@@ -16,18 +18,19 @@ const PlayerInput = () => {
             if (err) {
                 console.log('Cannot create room:', err);
                 setRoom('')
-                _error = true;
+                setError(true)
                 return
             }
                 setRoom(_room)
+                setCreated(true)
         })
     }
 
     const checkRoom = () => {
-        socket.emit('check room', room, (err, _room) => {
+        socket.emit('check room', {room,name}, (err, _room) => {
             if (err) {
                 console.log('Cannot check room:', err);
-                _error = true;
+                setError(true)
                 setRoom('')
                 return
             }
@@ -37,6 +40,7 @@ const PlayerInput = () => {
                 return
             }
                 setRoom(_room)
+                setChecked(true)
         })
     }
 
@@ -46,7 +50,7 @@ const PlayerInput = () => {
             {/* <img className="bg" src="/assets/bg.jpg" alt="" /> */} 
             <div className="alert">
 
-            {_error ? (<Alert severity="error">An Error Occured</Alert>) : (room ? (<Alert severity="success">Room Created Successfully!!!</Alert>) : (<Alert severity="warning">Room Not Found!!!</Alert>))}
+            {error ? (<Alert severity="error">An Error Occured</Alert>) : (checked ? (<Alert severity="success">You Entered a Valid Room Code!!!</Alert>) : (created ? (<Alert severity="success">Room Created !!!</Alert>) : null))}
             </div>
          <div className="inputWrapper">
             <div className="inputRight">
@@ -55,9 +59,9 @@ const PlayerInput = () => {
             <div className="inputLeft">
                 <div className="top">
                 <input placeholder="Enter a Nickname" className="nickname" onChange={(e) => setName(e.target.value)}/>
-                <input placeholder="Enter Your Room Code" className="roomcode" onKeyPress={event => event.key === 'Enter' ? checkRoom() : null}/>
+                <input placeholder="Enter Your Room Code" className="roomcode" onChange={(e) => setRoom(e.target.value)} onKeyPress={event => event.key === 'Enter' ? checkRoom() : null}/>
                 <div className="butn">
-                {room ? (<div className="homePagebtn" ><Link style={{"textDecoration":"none", "color": "white"}}onClick={e => (!name || !room)? e.preventDefault() : null} to={{pathname: `/${room}`, name}}>
+                {checked? (<div className="homePagebtn" ><Link style={{"textDecoration":"none", "color": "white"}}onClick={e => (!name || !room)? e.preventDefault() : null} to={{pathname: `/${room}`, name}}>
                 Join Room
                 </Link></div>) :  null}
                 
@@ -67,7 +71,7 @@ const PlayerInput = () => {
                 <div className="bottom">
                 <input placeholder="Enter a Nickname" className="nickname" onChange={(e) => setName(e.target.value)} onKeyPress={event => event.key === 'Enter' ? createRoom() : null}/>
                 <div className="butn">
-                {room ? (<div className="homePagebtn" ><Link style={{"textDecoration":"none", "color": "white"}}onClick={e => (!name || !room)? e.preventDefault() : null} to={{pathname: `/${room}`, name}}>
+                {created ? (<div className="homePagebtn" ><Link style={{"textDecoration":"none", "color": "white"}}onClick={e => (!name || !room)? e.preventDefault() : null} to={{pathname: `/${room}`, name}}>
                 Join Room
                 </Link></div>) :  null}
                 </div>
