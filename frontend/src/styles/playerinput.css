@@ -46,7 +46,10 @@
 }
 .homePagebtn{
     width: 150px;
-    border: none;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    /* border: 2px solid red; */
     padding: 10px;
     border-radius: 5px;
     font-weight: 500;

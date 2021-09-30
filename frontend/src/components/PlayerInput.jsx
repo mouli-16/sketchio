@@ -9,8 +9,6 @@ const PlayerInput = () => {
     const[room ,setRoom] = useState('');
     // const[tempRoom ,setTempRoom] = useState('');
     let _error = false;
-    let created = false;
-    let checked = false;
 
 
     const createRoom = () => {
@@ -22,7 +20,6 @@ const PlayerInput = () => {
                 return
             }
                 setRoom(_room)
-                created = true
         })
     }
 
@@ -40,7 +37,6 @@ const PlayerInput = () => {
                 return
             }
                 setRoom(_room)
-                checked = true
         })
     }
 
@@ -61,18 +57,19 @@ const PlayerInput = () => {
                 <input placeholder="Enter a Nickname" className="nickname" onChange={(e) => setName(e.target.value)}/>
                 <input placeholder="Enter Your Room Code" className="roomcode" onKeyPress={event => event.key === 'Enter' ? checkRoom() : null}/>
                 <div className="butn">
-                {checked ? (<Link onClick={e => (!name || !room)? e.preventDefault() : null} to={{pathname: `/${room}`, name}}>
-                <div className="homePagebtn join" >Join Room</div>
-                </Link>) : null}
+                {room ? (<div className="homePagebtn" ><Link style={{"textDecoration":"none", "color": "white"}}onClick={e => (!name || !room)? e.preventDefault() : null} to={{pathname: `/${room}`, name}}>
+                Join Room
+                </Link></div>) :  null}
+                
                 </div>
                 </div>
                 <hr />
                 <div className="bottom">
                 <input placeholder="Enter a Nickname" className="nickname" onChange={(e) => setName(e.target.value)} onKeyPress={event => event.key === 'Enter' ? createRoom() : null}/>
                 <div className="butn">
-                {created ? (<Link onClick={e => (!name || !room)? e.preventDefault() : null} to={{pathname: `/${room}`, name}}>
-                <div className="homePagebtn" >Create Room</div>
-                </Link>) : null}
+                {room ? (<div className="homePagebtn" ><Link style={{"textDecoration":"none", "color": "white"}}onClick={e => (!name || !room)? e.preventDefault() : null} to={{pathname: `/${room}`, name}}>
+                Join Room
+                </Link></div>) :  null}
                 </div>
                 </div>
             </div>
