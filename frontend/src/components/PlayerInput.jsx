@@ -7,8 +7,10 @@ import { socket } from "../service/socket";
 const PlayerInput = () => {
     const[name ,setName] = useState('');
     const[room ,setRoom] = useState('');
-    const[tempRoom ,setTempRoom] = useState('');
+    // const[tempRoom ,setTempRoom] = useState('');
     let _error = false;
+    let created = false;
+    let checked = false;
 
 
     const createRoom = () => {
@@ -20,11 +22,12 @@ const PlayerInput = () => {
                 return
             }
                 setRoom(_room)
+                created = true
         })
     }
 
     const checkRoom = () => {
-        socket.emit('check room', tempRoom, (err, _room) => {
+        socket.emit('check room', room, (err, _room) => {
             if (err) {
                 console.log('Cannot check room:', err);
                 _error = true;
@@ -37,6 +40,7 @@ const PlayerInput = () => {
                 return
             }
                 setRoom(_room)
+                checked = true
         })
     }
 
@@ -55,20 +59,20 @@ const PlayerInput = () => {
             <div className="inputLeft">
                 <div className="top">
                 <input placeholder="Enter a Nickname" className="nickname" onChange={(e) => setName(e.target.value)}/>
-                <input placeholder="Enter Your Room Code" className="roomcode" onChange={(e) => setTempRoom(e.target.value)} />
+                <input placeholder="Enter Your Room Code" className="roomcode" onKeyPress={event => event.key === 'Enter' ? checkRoom() : null}/>
                 <div className="butn">
-                <Link onClick={e => (!name || !room)? e.preventDefault() : null} to={{pathname: `/${room}`, name}}>
-                <button className="homePagebtn join" onClick={()=>{checkRoom()}}>Join Room</button>
-                </Link>
+                {checked ? (<Link onClick={e => (!name || !room)? e.preventDefault() : null} to={{pathname: `/${room}`, name}}>
+                <div className="homePagebtn join" >Join Room</div>
+                </Link>) : null}
                 </div>
                 </div>
                 <hr />
                 <div className="bottom">
-                <input placeholder="Enter a Nickname" className="nickname" onChange={(e) => setName(e.target.value)}/>
+                <input placeholder="Enter a Nickname" className="nickname" onChange={(e) => setName(e.target.value)} onKeyPress={event => event.key === 'Enter' ? createRoom() : null}/>
                 <div className="butn">
-                <Link onClick={e => (!name || !room)? e.preventDefault() : null} to={{pathname: `/${room}`, name}}>
-                <button className="homePagebtn" onClick={()=>{createRoom()}}>Create Room</button>
-                </Link>
+                {created ? (<Link onClick={e => (!name || !room)? e.preventDefault() : null} to={{pathname: `/${room}`, name}}>
+                <div className="homePagebtn" >Create Room</div>
+                </Link>) : null}
                 </div>
                 </div>
             </div>

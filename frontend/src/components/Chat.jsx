@@ -36,7 +36,7 @@ import Message from "./Message";
 //   }
 
 const Chat = (props) => {
-  const [turn ,setTurn] = useState('');
+  const [turn ,setTurn] = useState('XD');
   const [word ,setWord] = useState('');
   const [message ,setMessage] = useState('');
   const [messages ,setMessages] = useState([]);

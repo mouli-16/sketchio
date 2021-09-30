@@ -5,7 +5,8 @@ module.exports = (io) => {
         console.log('A user connected');
 
         socket.on('create room', (name, cb) => {
-            const { error, user } = createRoom({sid: socket.id, name})
+            console.log('event create room');
+            const { error, user } = createRoom({sid: socket.id, name, points: 0})
             if (error) {
                 cb(error, null)
                 return
@@ -44,7 +45,9 @@ module.exports = (io) => {
             }
             console.log('turn:', turn);
             if(turn) {
-                const { word } = getUserByName(turn)
+                const user2 = getUserByName(turn)
+                console.log('in message event:', user2);
+                const word = user2.word
                 if(!word) {
                     cb(`error, it's not ${turn}'s turn'`, null)
                     return
