@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useLocation } from "react-router";
+import Backdrop from '@mui/material/Backdrop';
 
 import Chat from "../../components/Chat";
 import Container from "../../components/Container";
@@ -33,18 +34,21 @@ const Dashboard = () => {
 
   return (
     <>
-      {users.length === 3 ? (
         <div className="playContainer">
+      {users.length === 3 ? (
+        <div className="content">
           <LeaderBoard users={users} />
           <Container />
           <Chat name={name} users={users} />
+          </div>
+          ) : (
+            <div className="backdrop">
+                  <h2>This game requires 3 players. </h2>
+                    <p className="backdrop-content"> Waiting for <b>{3 - users.length}</b>  more to join</p>
+                  <p className="backdrop-content italic">Share this link and enjoy</p>
+            </div>
+            )}
         </div>
-      ) : (
-        <div className="backdrop">
-          <h3>This game requires 3 players, more {3 - users.length}</h3>
-          <p className="backdrop-content">Share this link and enjoy</p>
-        </div>
-      )}
     </>
   );
 };
