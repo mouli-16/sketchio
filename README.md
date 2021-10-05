@@ -7,4 +7,4 @@ Sketchio is a multi-player sketch guessing game, where users can draw the word o
 
 This project is made with React as the frontend framework and Express, Socket.io and Node for the backend
 
-
+[Documentation](https://cybercitizen01.github.io/sketchio/)
