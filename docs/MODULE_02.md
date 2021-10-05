@@ -1,90 +1,59 @@
-# Sketchio ( MODULE  01 )
+# Sketchio ( MODULE  02 )
 
 `(TOC)`
 
-## Introduction
-
-​	Hey there !!, welcome to **Sketchio**, a multiplayer game wherein you sketch and others guess, clone of the very popular Skribbl game (which is an online modification of [Pictionary](https://en.wikipedia.org/wiki/Pictionary) game we play).
-
-​	We will cover the entire project over a period of 10 days, after which you will be given some time for open innovation, where you are free to add as many as features as you wish to make your project unique and outstanding. But before we move on further, let’s have a rough overview of the project.
-
-### Overview of the project
-
-​	Over the period of 10 days, we will be building a project that will have: 
-
-+ A chat component, so that players can communicate, set user defined _words_, and _guess_ the word from the sketch,
-
-+ A draw board component, to sketch with different stroke colours and sizes,
-
-+ A leader board component to display the points and standings of players, and
-
-+ A landing page to join and create rooms
-
-​	As you can see, this is an example of a **Full Stack Project**.
-
-### What do you mean by a Full Stack Project?
-
-​	Any application be it a website, or a desktop application or a mobile phone application, has a certain user interface, something you see and interact with, that interface is called the Frontend of that application (or the client-side application). Now, apart from the visual and interactive part, an application also requires something called as Backend (or the server-side application) to govern the behaviour of it, for example when you search for something on Google, how does it fetch the results? or rather what makes the results and sends it to you ? or maybe when you are playing a multiplayer online game, what makes it multiplayer ? This is an invisible part that the end users don't really see, but it encapsulates the main logic of the application. Besides these, there is one more part called as a Database which as the name suggests stores data, for example when you are shopping on Amazon, your cart items are stored in the database, so when you visit the website again, you can see them.
-
-​	So a full stack project is simply one which involves both frontend and backend, and usually utilising a Database (sometimes this is also considered as part of the backend) to store data. Now, there are a lot of different pre-written frameworks / libraries in different languages already present out there, and usually constitute the [stack](https://en.wikipedia.org/wiki/Solution_stack) of the application. One popular stack (at least at the time of writing this) is the [**MERN**](https://www.mongodb.com/mern-stack) stack, which means **M**ongoDB for the database, **E**xpress for the server, **R**eact for the frontend library, and **N**ode as the runtime environment for development in JavaScript.
-
-### Architecture of a typical App
-
-![Architecture](Images/architecture.png)
-
-## Prerequisites
-
-​	The project can be followed by anyone who is interested, but a basic knowledge in the following would help:
-
-+ Basics of internet like, IP address, Ports, TCP etc
-
-+ Basics of HTML and JavaScript (Arrays, functions, classes etc)
-
-​	Now if you feel confident enough in the above fundamentals, let's dive into one of the core concept of the project, namely **Web Sockets**. And build the chat component of the project.
-
-### WebSockets
-
-> WebSocket is a computer communications protocol, providing full-duplex communication channels over a single TCP connection.
->
-> The WebSocket protocol enables interaction between a web browser (or other client application) and a web server with lower overhead, facilitating real-time data transfer from and to the server. This is made possible by providing a standardized way for the server to send content to the client without being first requested by the client, and allowing messages to be passed back and forth while keeping the connection open. In this way, a two-way ongoing conversation can take place between the client and the server. ~ [_Wikipedia_](https://en.wikipedia.org/wiki/WebSocket)
-
-​	Remember, in the _Setup module_ we installed a package `socket.io`, what does this package do is make implementing `WebSockets` super easy and understandable and also gives a lot of other functionalities such as broadcasting and namespacing.
-
-Now, let us connect 
-
-So moving on let's edit the `eventHandlers.js` file to implement:
+​	In the **MODULE 01** we discussed a simple `connection` event, `console.log`ed it and also discussed storing users in the `backend`. So in this module let's try to implement:
 
 + A normal chat,
-+ The logic of setting up a _word_ to guess, and
-+ The logic for guessing the _word_.
++ The logic of setting up a _word_ to guess,
++ The logic for guessing the _word_, and
++ Implement `Socket.IO`'s room functionality.
 
 ## Normal Chat
 
-​	So how does a chat works ? A player sends a message to the server, server sends (or _broadcasts_) the message to other players and this happens with each player. In `socket.io`, we can do this very easily by:
+​	So how does a chat work ? A player sends a message to the server, server sends (or _broadcasts_) the message to other players and this happens with each player. In `socket.io`, roughly we can do this by:
 
 ```javascript
 // Client
-socket.emit('msg', /*The message goes here*/)
+socket.emit('msg', /*The message*/)
 
 // Server
-socket.on('msg', /*A callback function that will handle the broadcast of the message goes here*/)
+socket.on('msg', /*A callback function to handle the broadcast of the message*/)
 ```
 
-​	The `client side` part for this depends on the mechanism of your `broadcast` in the `callback` function, but an overview of it might be just adding a `input` field and emitting the `msg` event on submit and when you recieve the `msg` event you can simply make a `paragraph` tag and append it to a `container` div, so that messages are visible to the players ( This can also be done in a smart way by using [`Acknowledgements`](https://socket.io/docs/v4/emitting-events/#acknowledgements)). Pseudo code for doing this in `React` is:
+​	For example, the `callback` function to implement the broadcast of message to everyone connected except the sender, can be done via `socket.broadcast.emit` (i.e. to emit the message that server just received from the sender to everyone connected except the sender).
+
+​	The `client` side part for this should include a mechanism to take input from the player and `emit` it to server. With `Socket.IO` you can define `callback` functions when you `emit` data, which gets fired up once the other end has received that data and calls it, yes you have read it right, you can define `callback` functions in the `client` side code and call them in the `server` side code or vice versa, these are called as [Acknowledgements](https://socket.io/docs/v4/emitting-events/#acknowledgements). An example of using acknowledgements:
+
+```javascript
+// Client
+socket.emit('msg', /*The message*/, (param1, param2) => {
+    // A callback function to call on the other side
+    console.log(param1, param2)
+})
+
+// Server
+socket.on('msg', (msg, callback) => {
+    console.log(msg)
+    callback('From the server', msg)
+})
+```
+
+​	So when you `emit` the player's input, define a `callback` function that will handle the mechanism to display message for the sender. And then define another `callback` for `socket.on` to handle the mechanism of displaying messages received (indirectly) from another player. We have split the mechanism of displaying messages depending upon whether a player is the sender or receiver of the message. Mechanism for displaying message can be to store messages into an array and simply make a `paragraph` tag for every item in that array and render it. Pseudo code for doing this in `React` is:
 
 ```jsx
-...
+// In a funtion based component
 msgs = [/*Keep a track of message content and sender*/]
-...
 return (
+    <div className='messages'>
     {msgs.map((msg,i) => <p key={i}>msg.sender: msg.content</p>)}
+    </div>
 )
-...
 ```
 
 ## `word` Setup logic
 
-​	There are different ways, you can implement this feature, either having a dedicated `input` field or something like that. But to spice up things a little, why not implement this in the chat itself. You can do this by having some prefix to differentiate between this and normal chat and `emit` out a different `event` if the message that a player enters has that prefix, like:
+​	There are different ways, you can implement this feature, either having a dedicated `input` field or something like that. But to spice up things a little, why not implement this in the chat itself. You can do this by having some prefix to differentiate between this and the normal chat and `emit` out a different `event` if the message that a player enters has that prefix, like:
 
 ```javascript
 // in the `input` field's onsubmit handler
@@ -95,7 +64,31 @@ if (msg.startsWith('!')) {
 }
 ```
 
+​	And on the server side you can broadcast this event to other players connected and handle it further. But you would need to store the `word` on the server side so that whenever someone guesses a word you can check if the guess is right or wrong by comparing it on the `server` side. You could add `word` as a property to the user (who is setting the `word`) in `users.js` by changing the `addUser` function (if you are using an array to store users) like:
+
+```javascript
+users.push({sid, name, word})
+```
+
+​	Moreover you also need to notify all other players about this and in the `client` side you need to store the fact that a particular player has set a `word`, you can do this by storing the name of that player in a variable and sending this within the `msg` event.
+
 ## `word` Guessing logic
 
-​	Now, that a word is set
+​	Now that a word is set, to actually check if a player guessed it right, as we have discussed above, it should be done on the `server` side and then emit a `event` to notify all others or you can simply modify the content of the message so that it indicates that a player has guessed the word, like:
 
+```javascript
+// Server
+const { word } = findUserByName(msg.turn)
+if (msg.content === word) {
+    msg.content = 'I have guessed the word'
+}
+// and then broadcast `msg` to all other players and fire up the `callback` function
+```
+
+## `Socket.IO` rooms
+
+​	Now with `Socket.IO` we can also define a room and make players join it (For documentation on rooms refer [here](https://socket.io/docs/v4/rooms/)). Now for this module let us pre-define the name of the room as `room1`, so that in the future you can add a join/create room functionality. So at the top of `eventHandlers` function, you need to add a statement calling the `join` method with `room1` as the parameter (we'll change this when we add join/create). And now you also need to change some of the `emit` functions, so If you want to emit to everyone in the room except the sender, use `socket.to('room1').emit` and for more refer the [cheatsheet](https://socket.io/docs/v4/emit-cheatsheet/).
+
+## Conclusion
+
+​	If you have done so far, you have a functional chat that can also be used to set and guess word. Besides now you have a fair understanding of how to use `Socket.IO` to implement `WebSockets`, and also implement `broadcasts`, `acknowledgements` and `rooms`.

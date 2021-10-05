@@ -1,13 +1,50 @@
-# Sketchio ( SETUP )
+# Sketchio ( MODULE 1 )
 
 `(TOC)` 
 
-​	Hello there!! Welcome to Sketchio, Ten Days of Code. Before we dive into the project there are certain stuff you need to do:
+## Introduction
+
+​	Hey there !!, welcome to **Sketchio**, a multiplayer game wherein you sketch and others guess, clone of the very popular Skribbl game (which is an online modification of [Pictionary](https://en.wikipedia.org/wiki/Pictionary) game we play).
+
+​	We will cover the entire project over a period of 10 days, after which you will be given some time for open innovation, where you are free to add as many as features as you wish to make your project unique and outstanding. But before we move on further, let’s have a rough overview of the project.
+
+### Overview of the project
+
+​	Over the period of 10 days, we will be building a project that will have: 
+
++ A chat component, so that players can communicate, set user defined _words_, and _guess_ the word from the sketch,
+
++ A draw board component, to sketch with different stroke colours and sizes,
+
++ A leader board component to display the points and standings of players, and
+
++ A landing page to join and create rooms
+
+​	As you can see, this is an example of a **Full Stack Project**.
+
+### What do you mean by a Full Stack Project?
+
+​	Any application be it a website, or a desktop application or a mobile phone application, has a certain user interface, something you see and interact with, that interface is called the Frontend of that application (or the client-side application). Now, apart from the visual and interactive part, an application also requires something called as Backend (or the server-side application) to govern the behaviour of it, for example when you search for something on Google, how does it fetch the results? or rather what makes the results and sends it to you ? or maybe when you are playing a multiplayer online game, what makes it multiplayer ? This is an invisible part that the end users don't really see, but it encapsulates the main logic of the application. Besides these, there is one more part called as a Database which as the name suggests stores data, for example when you are shopping on Amazon, your cart items are stored in the database, so when you visit the website again, you can see them.
+
+​	So a full stack project is simply one which involves both frontend and backend, and usually utilising a Database (sometimes this is also considered as part of the backend) to store data. Now, there are a lot of different pre-written frameworks / libraries in different languages already present out there, and usually constitute the [stack](https://en.wikipedia.org/wiki/Solution_stack) of the application. One popular stack (at least at the time of writing this) is the [**MERN**](https://www.mongodb.com/mern-stack) stack, which means **M**ongoDB for the database, **E**xpress for the server, **R**eact for the frontend library, and **N**ode as the runtime environment for development in JavaScript.
+
+### Architecture of a typical App
+
+![Architecture](Images/architecture.png)
+
+## Prerequisites
+
+​	The project can be followed by anyone who is interested, but a basic knowledge in the following would help:
+
++ Basics of internet like, IP address, Ports, TCP etc
+
++ Basics of HTML and JavaScript (Arrays, functions, classes etc)
+
+​	Now Before we dive into the project there are certain stuff you need to do:
 
 + Install `node`
 
 + Setup a folder structure
-
 
 ## `node` Installation
 
@@ -54,11 +91,9 @@ npm install express socket.io
    })
    ```
 
-   
-
 2. `eventHandlers.js`: This will contain all the code required for handling various `socket` `events`.
 
-   ​	To actually define event handlers in a different file, add the following lines in `app.js`:
+   ​	To actually define event handlers in a different file (which is recommended, _separation of concerns_), add the following lines in `app.js`:
 
    ```javascript
    const eventHandlers = require('./eventHandlers')(io)
@@ -75,8 +110,6 @@ npm install express socket.io
        return eventHandlers
    }
    ```
-
-   
 
 3. `users.js`: This will act as our database, you can either use this as a `model` with some database like `mongoDB` or `sqlite `, or maybe just initialise an array in it and add methods to create/update/delete data etc from that array, for example:
 
@@ -99,4 +132,33 @@ npx create-react-app .
 ```
 
 ​	`create-react-app` is neat little tool to quickly initialise a `React` application, and to know about the difference between `npx` and `npm`, check [this](https://www.freecodecamp.org/news/npm-vs-npx-whats-the-difference/) out.
+
+​	Now, let's dive into one of the core concept of the project, namely **Web Sockets**.
+
+### WebSockets
+
+> WebSocket is a computer communications protocol, providing full-duplex communication channels over a single TCP connection.
+>
+> The WebSocket protocol enables interaction between a web browser (or other client application) and a web server with lower overhead, facilitating real-time data transfer from and to the server. This is made possible by providing a standardized way for the server to send content to the client without being first requested by the client, and allowing messages to be passed back and forth while keeping the connection open. In this way, a two-way ongoing conversation can take place between the client and the server. ~ [_Wikipedia_](https://en.wikipedia.org/wiki/WebSocket)
+
+​	So `WebSocket` is nothing but a protocol that lets us have a full-duplex communication between server and the client. And to implement it we use `Socket.IO` (there are other packages also that we can use, but `Socket.IO` is one of the popular ones, super easy to implement and understand,  and also gives a lot of other functionalities such as broadcasting and namespacing). Now there's something called as `event`s in `Socket.IO`, which lets us emit some data from one end to another and on receiving the data, we can run a `callback` function to do something useful with that data (by ends, we mean that both `server` and `client` can emit and receive data through events). A simple overview on how to use `Socket.IO` for emitting data is:
+
+```javascript
+socket.emit('EventName', 'Some data, that can be string or an object')
+```
+
+```javascript
+socket.on('EventName', (data) => {
+    console.log(data) // The data we send from one end gets printed once it has arrived
+})
+```
+
+​	So in simple terms, on one end you could emit data and on another end you can define a `callback` function to fire up once it receives that data, Now if you feel confident enough in the above fundamentals, let's build a simple connection between the `frontend` and `backend`.
+
+## First connection
+
+​	Now lets make the first connection between the server and the client:
+
++ The `eventHandlers` function in `backend/eventHandlers.js` file, as we have already discussed, will fire up once the connection is established, so add a `console.log` statement to know if a `client` got connected and besides this, with `Socket.IO` we get a `disconnect` event (refer the documentation to know more about such special events) emitted whenever a client gets disconnected. So using this we can add another `console.log` statement in the callback function of the event to know if a `client` got disconnected.
++ Now for the `frontend` part, 
 
