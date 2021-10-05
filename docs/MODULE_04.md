@@ -1,25 +1,37 @@
-All caught up till now? Great. Let’s now build a quick and easy scoreboard. Let’s make it simple by breaking down our problem.
+# **MODULE 4**
+
+# **LEADERBOARD COMPONENT**
+
+All caught up till now? Great. 
+
+Let’s now build a quick and easy scoreboard. 
+
+Let’s make it simple by breaking down our problem.
 
 We need: 
 
-● A record of individual player names and their scores
+- A record of individual player names and their scores
 
-● Individual player ranks 
+- Individual player ranks 
 
-● A symbol to identify whose turn it is. So let’s start by creating an independent React component say leaderboard.jsx We’ll start by creating a simple component, that utilises props to get users details 
+- A symbol to identify whose turn it is. So let’s start by creating an independent React component say ```leaderboard.jsx```
 
-Now mapping through each user render individual user’s name and points to the dom. 
+- We’ll start by creating a simple component, that utilises props to get ```users``` details 
 
-Moving to the backend folder add a increaseScore method to user.js file which increments the score of the player who guessed it right. 
+- Now mapping through each ```user``` render individual user’s name and points to the dom. 
 
-user.points —> user.points+10 
+- Moving to the backend folder add a increaseScore method to ```user.js``` file which increments the score of the player who guessed it right. 
 
-In the eventHandlers file call the increaseScore function in the message event where we check if the incoming message matches the correct word or not.
+```user.points —> user.points+10``` 
 
-Lastly add any icon to beside any user that shows whose turn it is. Keep changing the icon position according to turn
+- In the eventHandlers file call the ```increaseScore``` function in the message event where we check if the incoming message matches the correct word or not.
+
+- Lastly add any icon to beside any user that shows whose turn it is. 
+
+- Keep changing the icon position according to turn
 
 Not that complicated right? 
 
-That’s all we had to do! There you have it! A functional scribble clone, use it to play with your team when bored :)! 
+That’s all we had to do! There you have it! A functional skribbl clone, use it to play with your team when bored :)! 
 
 You are now free to add any other features of your choice.
