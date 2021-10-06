@@ -1,7 +1,7 @@
 .chat {
   height: 500px;
   margin-left: 20px;
-  background-color: rgba(225, 255, 225, 0.15);
+  background-color: rgba(225, 255, 225, 0.356);
   border-radius: 5px 20px 20px 5px;
   display: grid;
   align-items: flex-end;
@@ -9,8 +9,8 @@
   /* justify-content: center; */
 }
 .textArea {
-  background-color: rgba(225, 255, 225, 0.15);
-  backdrop-filter: blur(8.5px);
+  background-color: rgba(225, 255, 225, 0.507);
+  backdrop-filter: blur(8px);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   border-radius: 15px;
   border: none;
@@ -37,10 +37,11 @@
   background-clip: padding-box;
 }
 .textArea::placeholder {
-  color: white;
+  color: black;
+  /* color: white; */
 }
 .btn {
-  background-color: rgba(225, 255, 225, 0.15);
+  background-color: rgba(225, 255, 225, 0.623);
   backdrop-filter: blur(8.5px);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   margin: 10px;

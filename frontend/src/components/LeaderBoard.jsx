@@ -5,7 +5,6 @@ import "../styles/leaderboard.css";
 
 const LeaderBoard = ({ users }) => {
   console.log("In Leaderboard users:", users);
-
   return (
     <div className="board">
       <h2>Leader Board</h2>

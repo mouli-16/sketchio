@@ -7,6 +7,7 @@ const {
   getUserById,
   getUserByName,
   getUsersInRoom,
+  ScoreIncrement,
 } = require("./users");
 
 module.exports = (io) => {
@@ -62,6 +63,8 @@ module.exports = (io) => {
             cb("You cannot guess, it's your turn", null);
             return;
           }
+           ScoreIncrement(user);
+          //  console.log(user.points);
           socket
             .to(user.room)
             .emit("message", { message: "I guessed it!!", sentBy: user.name });

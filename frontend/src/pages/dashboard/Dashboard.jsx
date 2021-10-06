@@ -45,7 +45,7 @@ const Dashboard = () => {
             <div className="backdrop">
                   <h2>This game requires 3 players. </h2>
                     <p className="backdrop-content"> Waiting for <b>{3 - users.length}</b>  more to join</p>
-                  <p className="backdrop-content italic">Share this link and enjoy</p>
+                  <p className="backdrop-content italic">Share the code and wait</p>
             </div>
             )}
         </div>

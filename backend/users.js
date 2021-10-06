@@ -74,6 +74,10 @@ const getUserByName = (name) => users.find((user) => user.name === name);
 
 const getUsersInRoom = (room) => users.filter((user) => user.room === room);
 
+const ScoreIncrement = (user) => {
+  user.points = user.points + 10
+}
+
 module.exports = {
   createRoom,
   checkRoom,
@@ -83,4 +87,5 @@ module.exports = {
   getUserById,
   getUserByName,
   getUsersInRoom,
+  ScoreIncrement,
 };
