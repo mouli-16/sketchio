@@ -35,7 +35,8 @@ const Dashboard = () => {
   return (
     <>
         <div className="playContainer">
-      {users.length === 3 ? (
+          <div className="cover">
+          {users.length === 3 ? (
         <div className="content">
           <LeaderBoard users={users} />
           <Container />
@@ -48,6 +49,8 @@ const Dashboard = () => {
                   <p className="backdrop-content italic">Share the code and wait</p>
             </div>
             )}
+          </div>
+     
         </div>
     </>
   );

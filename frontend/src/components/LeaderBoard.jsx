@@ -15,7 +15,7 @@ const LeaderBoard = ({ users }) => {
               <li key={i} className="ranklistItem">
                 <Avatar {...stringAvatar(name)} />
                 <h4>{name}</h4>
-                <div className="points">{points}</div>
+                {/* <div className="points">{points}</div> */}
               </li>
             );
           })}
