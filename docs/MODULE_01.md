@@ -160,5 +160,35 @@ socket.on('EventName', (data) => {
 ​	Now lets make the first connection between the server and the client:
 
 + The `eventHandlers` function in `backend/eventHandlers.js` file, as we have already discussed, will fire up once the connection is established, so add a `console.log` statement to know if a `client` got connected and besides this, with `Socket.IO` we get a `disconnect` event (refer the documentation to know more about such special events) emitted whenever a client gets disconnected. So using this we can add another `console.log` statement in the callback function of the event to know if a `client` got disconnected.
-+ Now for the `frontend` part, 
++ Now for the `frontend` part, first install `socket.io-client` using the 
+```bash
+npm install express socket.io
+``` 
+command
++ Once you have installed the Socket.IO client library,remove all other folders from `src` except `App.js` and `index.js` then create two folders named `components` and `pages` in `src` for different components and pages of the project respectively. You can also create a `styles` folder for all your `css` files or store them in `components` or `pages` along with their respective `jsx` files but do create separate `css` files for each component and page to reduce complexity. 
++ Now your task is to init the client by:
+```javascript
+ import io from "socket.io-client";
+ ```
+  in a separate file named `socket.js` and then export the `socket` instance so as to use in other files
+```javascript
+export const socket = io(ENDPOINT);
+```
+Since our front is not served from the same domain as our server, you have to pass the URL of your server as the `ENDPOINT`.
++ And now the next task is to check how to connect and discoonect from the server. This is how you do it
+
+       ```javascript
+       socket.on("connect", () => {
+       console.log(socket.connected); // true
+       });
+       ```
+
+       ```javascript
+       socket.on("disconnect", () => {
+       console.log(socket.connected); // false
+       });
+       ```
+    `socket.connnect` is an attribute which describes whether the socket is currently connected to the server or not.
+
+Voila!!! Here is your react-app connected to the server using socket.
 
