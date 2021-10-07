@@ -7,7 +7,7 @@ const LeaderBoard = ({ users }) => {
   console.log("In Leaderboard users:", users);
   return (
     <div className="board">
-      <h2>Leader Board</h2>
+      <h2>Player List</h2>
       <div className="ranks">
         <ul className="ranklist">
           {users.map(({ name, points }, i) => {
