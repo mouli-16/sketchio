@@ -186,6 +186,10 @@ New features added!
 
 The Clear Canvas button should work!
 
+The draw area component is ready 
+
+![Drawarea](Images/Drawarea.png)
+
 
 
 
