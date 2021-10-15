@@ -124,6 +124,14 @@ npm install express socket.io
 4. `.gitignore`: This file is what tells `git` to ignore some of the folders / files to include them in the source control. If you have run the `npm install` command as shown above then you may have noticed a folder `node_modules` is created which actually contains the packages we installed and it is not a good practice to commit them to the source control, so add a line "`node_modules`" in this file.
 
 ### Frontend
+   For the Frontend part we will use Reactjs
+   
+   Now, **What is React?**
+
+   React is a javascript library which basically helps us create the client side part, which determines what the client sees and how you will represent your user interface.
+
+   For, more details go through [this](https://reactjs.org/docs/getting-started.html) link!
+
 
 ​	Now, lets come to the `client side` part, first navigate to the `frontend` folder and run the following:
 
