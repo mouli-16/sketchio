@@ -1,7 +1,7 @@
 .chat {
   height: 500px;
   margin-left: 20px;
-  background-color: rgba(225, 255, 225, 0.356);
+  background-color: rgba(225, 255, 225, 0.568);
   border-radius: 5px 20px 20px 5px;
   display: grid;
   align-items: flex-end;
