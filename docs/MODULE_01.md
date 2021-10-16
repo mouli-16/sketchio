@@ -124,13 +124,6 @@ npm install express socket.io
 4. `.gitignore`: This file is what tells `git` to ignore some of the folders / files to include them in the source control. If you have run the `npm install` command as shown above then you may have noticed a folder `node_modules` is created which actually contains the packages we installed and it is not a good practice to commit them to the source control, so add a line "`node_modules`" in this file.
 
 ### Frontend
-   For the Frontend part we will use Reactjs
-   
-   Now, **What is React?**
-
-   React is a javascript library which basically helps us create the client side part, which determines what the client sees and how you will represent your user interface.
-
-   For, more details go through [this](https://reactjs.org/docs/getting-started.html) link!
 
 
 ​	Now, lets come to the `client side` part, first navigate to the `frontend` folder and run the following:
@@ -139,18 +132,28 @@ npm install express socket.io
 npx create-react-app .
 ```
 
-​	`create-react-app` is neat little tool to quickly initialise a `React` application, and to know about the difference between `npx` and `npm`, check [this](https://www.freecodecamp.org/news/npm-vs-npx-whats-the-difference/) out.
- 
- To use socket in the front-end we need `socket.io-client` to install run:
+​	`create-react-app` is neat little tool to quickly initialise a `React` application, (and to know about the difference between `npx` and `npm`, check [this](https://www.freecodecamp.org/news/npm-vs-npx-whats-the-difference/) out). It'll take a few minutes after which a you can see a bunch of folders and files created. But what is `React` anyway?
+
+​	`React` or `ReactJS` is a frontend JavaScript library for building user interfaces or UI components. Which essentially means, it helps us create the client side part, the part that determines what the client sees and how you want to present your application to your end user (For more details go through [this](https://reactjs.org/docs/getting-started.html) link).
+
+​	And with this, to implement `WebSockets` we need `socket.io-client`, so run:
 
 ```bash
 npm install socket.io-client
-``` 
+```
 
+​	And after the installation, except `App.js` and `index.js`, remove everything from `src` folder and create two folders named `components` and `pages` in `src` for different components and pages of the project respectively. You can also create a `styles` folder for all your `css` files or store them in `components` and `pages` along with their respective `jsx` files but do create separate `css` files for each component and page to reduce complexity.
 
-​	Now, let's dive into one of the core concept of the project, namely **Web Sockets**.
+​	Now, what does `Socket.IO` do is create an `socket` object to make a connection to the `server`. So to use it globally across all components we can initialise it in a file, say `sockets.js`, and export it. Also to initialise `socket` object we require something called the endpoint of the WebSockets server, which in our case (local development) would be `ws://localhost:<port number>` (we need this because the client side is served separately from the server side). So it would be something like:
 
-### WebSockets
+```javascript
+import io from "socket.io-client";
+export const socket = io(/*endpoint*/);
+```
+
+​	Now, let's dive into one of the core concept of the project, namely **WebSockets**.
+
+## WebSockets
 
 > WebSocket is a computer communications protocol, providing full-duplex communication channels over a single TCP connection.
 >
@@ -175,30 +178,22 @@ socket.on('EventName', (data) => {
 ​	Now lets make the first connection between the server and the client:
 
 + The `eventHandlers` function in `backend/eventHandlers.js` file, as we have already discussed, will fire up once the connection is established, so add a `console.log` statement to know if a `client` got connected and besides this, with `Socket.IO` we get a `disconnect` event (refer the documentation to know more about such special events) emitted whenever a client gets disconnected. So using this we can add another `console.log` statement in the callback function of the event to know if a `client` got disconnected.
-+ Now for the `frontend` part, first remove all other folders from `src` except `App.js` and `index.js` then create two folders named `components` and `pages` in `src` for different components and pages of the project respectively. You can also create a `styles` folder for all your `css` files or store them in `components` and `pages` along with their respective `jsx` files but do create separate `css` files for each component and page to reduce complexity. 
-+ Now your task is to init the client by:
++ The same goes in the client side, so something like the following would be required in our root component (`App.js`) :
+
 ```javascript
- import io from "socket.io-client";
- ```
-  in a separate file named `socket.js` and then export the `socket` instance so as to use in other files
-```javascript
-export const socket = io(ENDPOINT);
+socket.on("connect", () => {
+    console.log(socket.connected); // true
+});
 ```
-Since our front is not served from the same domain as our server, you have to pass the URL of your server as the `ENDPOINT`.
-+ And now the next task is to check how to connect and disconect from the server. This is how you do it
 
-       ```javascript
-       socket.on("connect", () => {
-       console.log(socket.connected); // true
-       });
-       ```
+```javascript
+socket.on("disconnect", () => {
+    console.log(socket.connected); // false
+});
+```
+​	where `socket.connnected` is an attribute which describes whether the socket is currently connected to the server or not.
 
-       ```javascript
-       socket.on("disconnect", () => {
-       console.log(socket.connected); // false
-       });
-       ```
-    `socket.connnect` is an attribute which describes whether the socket is currently connected to the server or not.
+## Task
 
-If you have done so far, you have a react-app connected to the server using socket.
+​	If you have done so far, you have a bare-bone React app connected to a server using socket. So now as a task you may implement a counter that keeps track of the users connected to the server. So store every user that connects, i.e. store their name and socket id, and also `console.log` all that data in the client side.
 
