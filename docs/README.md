@@ -1,12 +1,28 @@
 ## Session 01
 #### [MODULE 01](MODULE_01.md) || [RECORDING](https://drive.google.com/file/d/1kYjH6C8i0gLL-tvlEO19sit3jUgJADeY/view?usp=sharing)
 Setup + initial connection + add users
+> ##### RESOURCES
+>
+> Express: https://youtu.be/2ojkb44XObc <br>
+> `useState` Hook: https://youtu.be/O6P86uwfdR0 <br>
+> `useEffect` Hook: https://youtu.be/0ZJgIjIuY7U <br>
+> WebSockets: https://youtu.be/1BfCnjr_Vjg
 ###### 17<sup>th</sup> October 2021
+
+### Task 01 live coding
+#### [🎬-01](https://drive.google.com/file/d/1eEXNYc6r2EDlJfJHPWPQN8NG3WV1bDeF/view?usp=sharing) || [🎬-02](https://drive.google.com/file/d/1lhyoHuxqPJUc8Hga69Qxlts6PDDMCmv6/view?usp=sharing)
+###### 18<sup>th</sup> October 2021
 
 
 ## Session 02
 #### [MODULE 02](MODULE_02.md) || [RECORDING](https://drive.google.com/file/d/19OIzHN0KT2rzYJS3_2gNlSmKk9ssdZ9Z/view?usp=sharing)
 Chat + set word + guess word
+> ##### RESOURCES
+>
+> React in 30 Mins: https://youtu.be/hQAHSlTtcmY <br>
+> Git/Github workflow for TDoC: https://youtu.be/PdYCtnmxWTM <br>
+> Git/Github crash course: https://youtu.be/p_MgO3Vyoqw <br>
+> Git installation Windows: https://youtu.be/u4HKGWhpoCQ
 ###### 19<sup>th</sup> October 2021
 
 
