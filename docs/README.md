@@ -3,6 +3,13 @@
 Setup + initial connection + add users
 ###### 17<sup>th</sup> October 2021
 
+
+## Session 02
+#### [MODULE 02](MODULE_02.md) || <!--[RECORDING]()-->
+Chat + set word + guess word
+###### 19<sup>th</sup> October 2021
+
+
 <br><br><br>
 
 ___
