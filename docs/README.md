@@ -5,7 +5,7 @@ Setup + initial connection + add users
 
 
 ## Session 02
-#### [MODULE 02](MODULE_02.md) || <!--[RECORDING]()-->
+#### [MODULE 02](MODULE_02.md) || [RECORDING](https://drive.google.com/file/d/19OIzHN0KT2rzYJS3_2gNlSmKk9ssdZ9Z/view?usp=sharing)
 Chat + set word + guess word
 ###### 19<sup>th</sup> October 2021
 
