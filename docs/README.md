@@ -27,6 +27,18 @@ Chat + set word + guess word
 
 ###### 19<sup>th</sup> October 2021
 
+### TASK 02 live coding
+
+#### [🎬](https://drive.google.com/file/d/1itBSW2OAzUJN-HVDGVsm3FUebLGc5t1o/view?usp=sharing)
+###### 20<sup>th</sup> October 2021
+
+___
+## Session 03
+#### [MODULE 03](MODULE_03.md) || RECORDING [🎬 - 01](https://drive.google.com/file/d/1xsNSSXa3RFE-pr2Hl-Kc6OLkvVqriH8Q/view?usp=sharing)
+Drawboard (stroke size, color and clear canvas)
+
+###### 22<sup>nd</sup> October 2021
+
 
 <br><br><br>
 
