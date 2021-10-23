@@ -34,7 +34,7 @@ Chat + set word + guess word
 
 ___
 ## Session 03
-#### [MODULE 03](MODULE_03.md) || RECORDING [🎬 - 01](https://drive.google.com/file/d/1xsNSSXa3RFE-pr2Hl-Kc6OLkvVqriH8Q/view?usp=sharing)
+#### [MODULE 03](MODULE_03.md) || RECORDING [🎬 - 01](https://drive.google.com/file/d/1xsNSSXa3RFE-pr2Hl-Kc6OLkvVqriH8Q/view?usp=sharing) [🎬 - 02](https://drive.google.com/file/d/1kYg6PIbFRMQZ112Ck0KI0uwatsl56i6V/view?usp=sharing)
 Drawboard (stroke size, color and clear canvas)
 
 ###### 22<sup>nd</sup> October 2021

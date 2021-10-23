@@ -1,4 +1,4 @@
-# Sketchio ( MODULE 3 ) || [🎬 - 01](https://drive.google.com/file/d/1xsNSSXa3RFE-pr2Hl-Kc6OLkvVqriH8Q/view?usp=sharing)
+# Sketchio ( MODULE 3 ) || [🎬 - 01](https://drive.google.com/file/d/1xsNSSXa3RFE-pr2Hl-Kc6OLkvVqriH8Q/view?usp=sharing) [🎬 - 02](https://drive.google.com/file/d/1kYg6PIbFRMQZ112Ck0KI0uwatsl56i6V/view?usp=sharing)
 
 ## Draw Component
 
