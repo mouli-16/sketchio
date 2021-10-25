@@ -39,6 +39,18 @@ Drawboard (stroke size, color and clear canvas)
 
 ###### 22<sup>nd</sup> October 2021
 
+### TASK 03 live coding
+
+#### [🎬](https://drive.google.com/file/d/1xZkh6NDP6dZX0en5hRAKA4Tex71wAxov/view?usp=sharing)
+###### 24<sup>th</sup> October 2021
+
+___
+## Session 04
+#### [MODULE 04](MODULE_04.md) || [RECORDING](https://drive.google.com/file/d/1xYQ47o-jwG9GYsCFJFfBv6DFXvNc1di8/view?usp=sharing)
+Leaderboard + Open Innovation
+
+###### 25<sup>th</sup> October 2021
+
 
 <br><br><br>
 
